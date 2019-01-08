@@ -1,6 +1,6 @@
 {
   "name": "@lunelson/sass-maps-next",
-  "version": "1.0.0-rc.2",
+  "version": "1.0.0",
   "description": "Next generation Sass map features",
   "keywords": [
     "libsass",
