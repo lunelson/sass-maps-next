@@ -1,0 +1,8 @@
+.test {
+  /* expect: (a: b, c: d) */
+  result: (a: b, c: d);
+  /* expect: (a: (b: c, d: e)) */
+  result: (a: (b: c, d: e));
+  /* expect: (a: (d: e)) */
+  result: (a: (d: e));
+}

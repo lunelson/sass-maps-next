@@ -1,0 +1,55 @@
+{
+  "name": "@lunelson/sass-maps-next",
+  "version": "0.9.0",
+  "description": "Next generation Sass map features",
+  "keywords": [
+    "libsass",
+    "dart-sass",
+    "map",
+    "maps",
+    "sass"
+  ],
+  "homepage": "https://github.com/lunelson/sass-maps-next#readme",
+  "bugs": {
+    "url": "https://github.com/lunelson/sass-maps-next/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/lunelson/sass-maps-next.git"
+  },
+  "license": "MIT",
+  "author": "Lu Nelson",
+  "main": "_index.scss",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "links": "npm link @lunelson/sass-throw",
+    "test": "ava",
+    "start": "ava --watch --serial"
+  },
+  "devDependencies": {
+    "@lunelson/sass-throw": "2.0.0-rc.4",
+    "ava": "^1.0.1",
+    "del": "^3.0.0",
+    "node-sass": "^4.11.0",
+    "sass": "^1.15.2",
+    "write": "^1.0.3"
+  },
+  "peerDependencies": {
+    "@lunelson/sass-throw": "2.0.0-rc.4"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "ava": {
+    "verbose": true,
+    "failFast": true,
+    "files": [
+      "tests/*{.js,.scss}"
+    ],
+    "sources": [
+      "_index.scss"
+    ]
+  }
+}

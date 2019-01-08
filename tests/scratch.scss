@@ -1,0 +1,23 @@
+@import '@lunelson/sass-throw/index';
+@import '../index';
+
+$throw-catch: true;
+$map: ( alpha: 1, beta: 2, gamma: 3 );
+$map-nested: (
+  alpha: (
+    beta: (
+      gamma: 3,
+      delta: 4,
+    ),
+    epsilon: 5,
+  ),
+);
+
+.test {
+  /* expect: (a: b, c: d) */
+  result: inspect(map-merge((a: b), (c: d)));
+  /* expect: (a: (b: c, d: e)) */
+  result: inspect(map-merge((a: (b: c)), a, (d: e)));
+  /* expect: (a: (d: e)) */
+  result: inspect(map-merge((a: (b: c)), (a: (d: e))));
+}
