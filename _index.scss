@@ -1,17 +1,17 @@
-///                                                                  _
-///                                                                 | |
-///  ___  __ _ ___ ___ ______ _ __ ___   __ _ _ __  ___ ______ _ __ | |_   _ ___
-/// / __|/ _` / __/ __|______| '_ ` _ \ / _` | '_ \/ __|______| '_ \| | | | / __|
-/// \__ \ (_| \__ \__ \      | | | | | | (_| | |_) \__ \      | |_) | | |_| \__ \
-/// |___/\__,_|___/___/      |_| |_| |_|\__,_| .__/|___/      | .__/|_|\__,_|___/
-///                                          | |              | |
-///                                          |_|              |_|
+//                                                                            _
+//                                                                           | |
+//  ___  __ _ ___ ___ ______ _ __ ___   __ _ _ __  ___ ______ _ __   _____  _| |_
+// / __|/ _` / __/ __|______| '_ ` _ \ / _` | '_ \/ __|______| '_ \ / _ \ \/ / __|
+// \__ \ (_| \__ \__ \      | | | | | | (_| | |_) \__ \      | | | |  __/>  <| |_
+// |___/\__,_|___/___/      |_| |_| |_|\__,_| .__/|___/      |_| |_|\___/_/\_\\__|
+//                                          | |
+//                                          |_|
 
 /////////////////////////////////////////////
 ///////////////// (private) /////////////////
 /////////////////////////////////////////////
 
-@function --smp-str-times($str, $n: 1) {
+@function --smn-str-times($str, $n: 1) {
   $output: '';
   @while $n > 0 {
     $output: $output + $str;
@@ -20,7 +20,7 @@
   @return $output;
 }
 
-@function --smp-list-slice($list, $start: 1, $end: length($list), $separator: list-separator($list)) {
+@function --smn-list-slice($list, $start: 1, $end: length($list), $separator: list-separator($list)) {
   $output: ();
   @if $start >= 1 and $end >= $start {
     @for $i from $start through $end {
@@ -30,7 +30,7 @@
   @return $output;
 }
 
-@function --smp-is-map($map) {
+@function --smn-is-map($map) {
   @return type-of($map) == "map" or (type-of($map) == "list" and length($map) == 0);
 }
 
@@ -39,7 +39,7 @@
 /////////////////////////////////////////////
 
 @function map-invert($map) {
-  @if not --smp-is-map($map) {
+  @if not --smn-is-map($map) {
     @return throw-error('argument `$map` of map-invert($map) must be a map');
   }
   $result: ();
@@ -54,7 +54,7 @@
 /////////////////////////////////////////////
 
 @function map-pick($map, $keys...) {
-  @if not --smp-is-map($map) {
+  @if not --smn-is-map($map) {
     @return throw-error('argument `$map` of map-pick($map, $keys...) must be a map');
   }
   $nots: ();
@@ -70,7 +70,7 @@
 
 @function map-omit($map, $keys...) {
   @if length($map) == 0 { @return (); }
-  @if not --smp-is-map($map) {
+  @if not --smn-is-map($map) {
     @return throw-error('argument `$map` of map-omit($map, $keys...) must be a map');
   }
   @return map-remove($map, $keys...);
@@ -85,7 +85,7 @@ $native-map-get: get-function('map-get');
 
 @function map-get($map, $keys...) {
   @if length($map) == 0 { @return null; }
-  @if not --smp-is-map($map) {
+  @if not --smn-is-map($map) {
     @return throw-error('argument `$map` of `map-get($map, $keys...)` must be a map');
   }
   @if length($keys) == 0 {
@@ -93,7 +93,7 @@ $native-map-get: get-function('map-get');
   }
   @each $key in $keys {
     // @if $map == null { @return $map; }
-    @if not --smp-is-map($map) { @return null; }
+    @if not --smn-is-map($map) { @return null; }
     $map: native-map-get($map, $key);
   }
   @return $map;
@@ -107,7 +107,7 @@ $native-map-merge: get-function('map-merge');
 @function native-map-merge($map1, $map2) { @return call($native-map-merge, $map1, $map2); }
 
 @function map-merge($map1, $keys-and-map2...) {
-  @if not --smp-is-map($map1) {
+  @if not --smn-is-map($map1) {
     @return throw-error('argument `$map1` of `map-merge($map1, $keys-and-map2...)` must be a map');
   }
   @if length($keys-and-map2) == 0 {
@@ -116,7 +116,7 @@ $native-map-merge: get-function('map-merge');
   $keys-and-map2-length: length($keys-and-map2);
   $key-length: $keys-and-map2-length - 1;
   $map2: nth($keys-and-map2, $keys-and-map2-length);
-  @if not --smp-is-map($map2) {
+  @if not --smn-is-map($map2) {
     @return throw-error('argument `$map2` of `map-merge($map1, $keys-and-map2...)` must be a map');
   }
   @if $key-length == 0 {
@@ -124,8 +124,7 @@ $native-map-merge: get-function('map-merge');
   } @else {
     @for $i from 0 through $key-length {
       $new: if($i == 0, $map2, (nth($keys-and-map2, $keys-and-map2-length - $i): $map2));
-      $tmp: --smp-list-slice($keys-and-map2, 1, $key-length - $i);
-      // @debug inspect($tmp);
+      $tmp: --smn-list-slice($keys-and-map2, 1, $key-length - $i);
       $old: if($i == $key-length, $map1, map-get($map1, $tmp...) or ());
       $map2: if(type-of($old) == 'map', native-map-merge($old, $new), $new);
     }
@@ -138,7 +137,7 @@ $native-map-merge: get-function('map-merge');
 /////////////////////////////////////////////
 
 @function map-set($map, $keys-and-value...) {
-  @if not --smp-is-map($map) {
+  @if not --smn-is-map($map) {
     @return throw-error('argument `$map` of `map-set($map, $keys...)` is not a map');
   }
   @if length($keys-and-value) == 0 {
@@ -152,7 +151,7 @@ $native-map-merge: get-function('map-merge');
   } @else {
     @for $i from 1 through $key-length {
       $new: (nth($keys-and-value, $keys-and-value-length - $i): $value);
-      $old: if($i == $key-length, $map, map-get($map, --smp-list-slice($keys-and-value, 1, $key-length - $i)...) or ());
+      $old: if($i == $key-length, $map, map-get($map, --smn-list-slice($keys-and-value, 1, $key-length - $i)...) or ());
       $value: if(type-of($old) == 'map', native-map-merge($old, $new), $new);
     }
   }
@@ -166,7 +165,7 @@ $native-map-merge: get-function('map-merge');
 @function map-inspect($map, $tab: '  ', $level: 1) {
   @if type-of($map) != 'map' { @return '#{inspect($map)}'; }
   $length: length(map-keys($map));
-  $indent: --smp-str-times($tab, $level);
+  $indent: --smn-str-times($tab, $level);
   $output: '(\A' + $indent;
   $i: 1;
   @each $key, $value in $map {
@@ -180,6 +179,6 @@ $native-map-merge: get-function('map-merge');
     }
     $i: $i + 1;
   }
-  $outdent: --smp-str-times($tab, $level - 1);
+  $outdent: --smn-str-times($tab, $level - 1);
   @return unquote($output + '\A' + $outdent + ')');
 }
