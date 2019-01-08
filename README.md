@@ -8,7 +8,7 @@ These functions enable `get`, `set` and `merge` operations on nested values in S
 
 Some additional utility functions are also provided.
 
-They are fully tested, and compatible with current versions of [libsass]() and [dart-sass]().
+They are fully tested, and compatible with current versions of [libsass](https://github.com/sass/libsass) and [dart-sass](https://github.com/sass/dart-sass).
 
 ## Installation
 ```sh

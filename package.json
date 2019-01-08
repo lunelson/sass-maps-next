@@ -24,12 +24,11 @@
     "test": "tests"
   },
   "scripts": {
-    "links": "npm link @lunelson/sass-throw",
     "test": "ava",
     "start": "ava --watch --serial"
   },
   "devDependencies": {
-    "@lunelson/sass-throw": "2.0.0-rc.4",
+    "@lunelson/sass-throw": "^2.0.0-rc.4",
     "ava": "^1.0.1",
     "del": "^3.0.0",
     "node-sass": "^4.11.0",
